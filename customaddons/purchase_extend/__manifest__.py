@@ -12,6 +12,7 @@
         'views/e_purchase_order.xml',
         'views/order_limit.xml',
         'views/employee_order_limit.xml',
+        'wizard/report_department.xml',
         'demo/department_data.xml'
     ],
     # 'demo':[
