@@ -6,9 +6,9 @@
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
               <xpath expr="//field[@name='team_id']" position="after">
-                  <field name="check_edit" invisible="1"/>
                    <field name="check_priority" invisible="1" readonly="0"/>
-                  <field name="revenue" attrs="{'readonly':[('check_edit','>',0)]}"/>
+                  <field name="revenue" attrs="{'readonly':[('quotation_count','>',0)]}"/>
+                  <field name="quotation_count" invisible="1"/>
              </xpath>
             <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="attributes">
                     <attribute name="attrs">{'invisible': [('check_priority', '=', True)]}</attribute>
@@ -22,6 +22,7 @@
             <xpath expr="//field[@name='user_id']" position="attributes">
                 <attribute name="groups">crm_extend.group_staff_employee</attribute>
             </xpath>
+
         </field>
     </record>
 

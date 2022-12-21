@@ -15,4 +15,5 @@ class IndicatorEvaluationCronjob(models.Model):
                                                                      res.month_6, res.month_7, res.month_8,
                                                                      res.month_9, res.month_10,
                                                                      res.month_11, res.month_12))
+                print(month_sales)
                 rec.revenue_difference = rec.real_revenue - month_sales[0][current_month - 1]

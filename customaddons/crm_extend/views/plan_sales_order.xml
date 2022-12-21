@@ -15,17 +15,17 @@
             <form>
                 <header>
                      <button name="btn_new" type="object" string="New" class="oe_highlight" attrs="{'invisible': [('state', 'in', ('new', 'send', 'approve','refuse'))]}" groups="crm_extend.group_staff_employee"/>
-                     <button name="btn_send" type="object" string="Send" class="oe_highlight" attrs="{'invisible':[('state', 'in', ('send', 'approve','refuse')), ('check_send', '=', 'no')]}" groups="crm_extend.group_staff_employee"/>
+                     <button name="btn_send" type="object" string="Send" class="oe_highlight" attrs="{'invisible':[('state', 'in', ('send', 'approve','refuse')), ('send', '=', False)]}" groups="crm_extend.group_staff_employee"/>
                      <button name="btn_approve_confirm" type="object" string="Approve" class="oe_highlight" groups="crm_extend.group_staff_approver" attrs="{'invisible': [('state', 'in', ('approve','refuse'))]}"/>
                      <button name="btn_refuse_confirm" type="object" string="Refuse" class="oe_highlight" groups="crm_extend.group_staff_approver" attrs="{'invisible': [('state', 'in', ('approve','refuse'))]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
-                            <field name="name" attrs="{'readonly': [('state', 'in', ('send','approve','refuse'))]}"/>
-                            <field name="infor_plan" attrs="{'readonly': [('state', 'in', ('send','approve','refuse'))]}"/>
-                            <field name="quotation" attrs="{'readonly': [('state', 'in', ('send','approve','refuse'))]}"/>
-                            <field name="check_send" invisible="1"/>
+                            <field name="name" attrs="{'readonly': [('state', 'in', ('send','approve'))]}"/>
+                            <field name="infor_plan" attrs="{'readonly': [('state', 'in', ('send','approve'))]}"/>
+                            <field name="quotation" attrs="{'readonly': [('state', 'in', ('send','approve'))]}"/>
+                            <field name="send" invisible="1"/>
                    </group>
                     <notebook>
                         <page class="fa fa-users" string="Approver List">

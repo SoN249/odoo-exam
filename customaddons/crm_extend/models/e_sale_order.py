@@ -7,7 +7,7 @@ class ESalesOrder(models.Model):
     plan_sale = fields.Many2one('plan.sale.order', string='Plan sale order')
 
     def create_plan_sale(self):
-        if self.plan_sale and self.plan_sale.confirm == 'yes':
+        if self.plan_sale and self.plan_sale.check_confirm == True:
             return super(ESalesOrder, self).create_plan_sale()
         else:
             raise models.ValidationError('The business plan has not been added or approved yet')
