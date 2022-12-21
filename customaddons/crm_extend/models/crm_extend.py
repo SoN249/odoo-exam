@@ -11,6 +11,7 @@ class CrmExtend(models.Model):
     check_edit = fields.Integer(string='Count', compute='_check_edit')
     create_month = fields.Integer('Create Month', compute='_compute_create_month', store=True)
     sale_team = fields.Many2many('crm.team', string="Sale team")
+
     check_priority = fields.Boolean('Check Priority', default=False, compute='_compute_check_priority', store=True)
 
     def _check_edit(self):

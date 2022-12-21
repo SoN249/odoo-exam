@@ -15,7 +15,9 @@ class ReportDepartment(models.TransientModel):
     # Filter data by month and department name
     def btn_confirm(self):
         department_name = self.department_id.mapped('name')
+
         if self.month and self.department_id:
+
             context = {
                 'name': _("Report"),
                 'view_mode': 'tree',
@@ -34,6 +36,7 @@ class ReportDepartment(models.TransientModel):
                 'type': 'ir.actions.act_window',
                 'view_id': self.env.ref('hr.view_department_tree').id,
                 'target': 'current',
-                'context': {'create': False, 'edit': False, 'delete': False}
+                'context': {'create': False, 'edit': False, 'delete': False},
+                'domain': [('create_month', '=', self.month)]
             }
         return context

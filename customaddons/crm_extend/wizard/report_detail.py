@@ -6,7 +6,6 @@ class ReportDetail(models.Model):
     _name = 'report.detail'
 
     month = fields.Selection([
-        ('0', date.today().strftime('%B')),
         ('1', 'January'),
         ('2', 'February'),
         ('3', 'March'),
@@ -19,15 +18,15 @@ class ReportDetail(models.Model):
         ('10', 'October'),
         ('11', 'November'),
         ('12', 'December')
-    ], required="True", default='0')
+    ], required="True",)
+
     sale_team = fields.Many2many('crm.team', string="Sale team")
+
 
     def btn_confirm(self):
         if self.month and self.sale_team:
-            if self.month == '0':
-                self.month = str(date.today().month)
             sale_teams_id = self.sale_team.mapped('id')
-            print(sale_teams_id)
+
             context = {
                 'name': _("Detail Report"),
                 'view_mode': 'tree',
@@ -35,8 +34,8 @@ class ReportDetail(models.Model):
                 'type': 'ir.actions.act_window',
                 'view_id': self.env.ref('crm.crm_case_tree_view_oppor').id,
                 'target': 'current',
-                'domain': [('sale_team', 'in', sale_teams_id), ('create_month', '=', self.month)],
-                'context': {'create': False, 'edit': False, 'delete': False}
+                'domain': [('team_id', 'in', sale_teams_id), ('create_month', '=', self.month)],
+                'context': 'context'
             }
         else:
             context = {
@@ -46,7 +45,8 @@ class ReportDetail(models.Model):
                 'type': 'ir.actions.act_window',
                 'view_id': self.env.ref('crm.crm_case_tree_view_oppor').id,
                 'target': 'current',
-                'context': {'create': False, 'edit': False, 'delete': False}
+                'context': {'create': False, 'edit': False, 'delete': False},
+                'domain': [('create_month', '=', self.month)]
             }
         return context
 

@@ -16,7 +16,7 @@
         <record id="indicator_evaluation_view_form" model="ir.ui.view">
             <field name="name">indicator.evaluation.view.form</field>
             <field name="model">indicator.evaluation</field>
-            <field name="arch" type="xml">
+            <field name="arch" type="xml" >
                 <form>
                     <sheet>
                         <group>
@@ -24,6 +24,7 @@
                             <field name="real_revenue"/>
                             <field name="month"/>
                             <field name="month_revenue"/>
+<!--                            <button name="check" string="check" type="object"/>-->
                         </group>
                     </sheet>
                 </form>

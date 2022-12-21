@@ -12,7 +12,6 @@
              </xpath>
             <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="attributes">
                     <attribute name="attrs">{'invisible': [('check_priority', '=', True)]}</attribute>
-
             </xpath>
             <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="before">
                 <button string="Lost" name="btn_leader_set_lost" type="object"
@@ -54,7 +53,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="sale_team"/>
+                    <field name="team_id"/>
                     <field name="revenue" widget="monetary"/>
                     <field name="real_revenue" widget="monetary"/>
                 </xpath>

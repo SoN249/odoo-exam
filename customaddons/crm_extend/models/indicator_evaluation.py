@@ -12,10 +12,11 @@ class IndicatorEvaluation(models.Model):
 
     # Calculate real_revenue = amount_untaxed corresponding to the opportunity
     def _compute_real_revenue(self):
+
         for rec in self:
             if rec.sale_team:
                 amount_untaxed_opportunity = self.env['sale.order'].search(
-                    [('team_id', '=', rec.sale_team.mapped('id')), ('opportunity_id', '!=', False)])
+                    [('team_id', '=', rec.sale_team.mapped('id'))])
                 amount_untaxed = amount_untaxed_opportunity.mapped('amount_untaxed')
                 rec.real_revenue = sum(amount_untaxed)
 
@@ -30,6 +31,7 @@ class IndicatorEvaluation(models.Model):
                                                                      res.month_6, res.month_7, res.month_8,
                                                                      res.month_9, res.month_10,
                                                                      res.month_11, res.month_12))
+
                 rec.month_revenue = month_sales[0][rec.month - 1]
 
     @api.depends('create_date')

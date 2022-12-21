@@ -1,21 +1,41 @@
-# -*- coding: utf-8 -*-
-# from odoo import http
+from odoo import http
+from odoo.http import request
+import json
 
+class SalesPurchase(http.Controller):
+    @http.route('/api_report', type='json', auth='none', methods=["POST"], csrf=False)
+    def sales_purchase(self, **kwargs):
+        body = json.loads(request.httprequest.data)
+        access_token = "odooneverdie"
 
-# class ApiReport(http.Controller):
-#     @http.route('/api_report/api_report', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+        if body["token"] == access_token and body["month"]:
+            indicator_evaluation = request.env['indicator.evaluation'].sudo().search([('month', '=', body["month"])])
+            sale_team = indicator_evaluation.mapped('sale_team')
+            sale_team_name = sale_team.mapped('name')
+            real_revenue = indicator_evaluation.mapped('real_revenue')
+            revenue_difference = indicator_evaluation.mapped('revenue_difference')
 
-#     @http.route('/api_report/api_report/objects', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('api_report.listing', {
-#             'root': '/api_report/api_report',
-#             'objects': http.request.env['api_report.api_report'].search([]),
-#         })
+            hr_department = http.request.env['hr.department'].sudo().search([('create_month', '=', body["month"])])
+            department_name = hr_department.mapped('name')
+            real_cost = hr_department.mapped('real_revenue')
+            real_cost_difference = hr_department.mapped('revenue_difference')
+            context = {
+                "sales": [],
+                "purchase": []
+            }
 
-#     @http.route('/api_report/api_report/objects/<model("api_report.api_report"):obj>', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('api_report.object', {
-#             'object': obj
-#         })
+            for name, real_revenue, diff in zip(sale_team_name, real_revenue, revenue_difference):
+                context["sales"].append({
+                    "sale_team_name": name,
+                    "real_revenue": real_revenue,
+                    "diff": diff
+                })
+
+            for name,real_cost, diff in zip(department_name,real_cost, real_cost_difference):
+              context['purchase'].append({
+                    "department_name": name,
+                    "real_cost": real_cost,
+                    "diff": diff
+                })
+            return context
+
