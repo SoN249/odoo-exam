@@ -8,18 +8,18 @@
             <xpath expr="//notebook/page[@name='members_users']" position="before">
                 <page string="Chỉ tiêu doanh số theo tháng (trước VAT)" groups="crm_extend.group_staff_manager">
                     <group>
-                       <field name="month_1" />
-                        <field name="month_2"/>
-                        <field name="month_3"/>
-                        <field name="month_4"/>
-                        <field name="month_5"/>
-                        <field name="month_6"/>
-                        <field name="month_7"/>
-                        <field name="month_8"/>
-                        <field name="month_9"/>
-                        <field name="month_10"/>
-                        <field name="month_11"/>
-                        <field name="month_12"/>
+                       <field name="January" />
+                        <field name="February"/>
+                        <field name="March"/>
+                        <field name="April"/>
+                        <field name="May"/>
+                        <field name="June"/>
+                        <field name="July"/>
+                        <field name="August"/>
+                        <field name="September"/>
+                        <field name="October"/>
+                        <field name="November"/>
+                        <field name="December"/>
                     </group>
                 </page>
             </xpath>

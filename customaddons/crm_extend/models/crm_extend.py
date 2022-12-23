@@ -12,11 +12,26 @@ class CrmExtend(models.Model):
     quotation_count = fields.Integer(compute='_compute_sale_data', string="Number of Quotations")
     check_priority = fields.Boolean('Check Priority', default=False, compute='_compute_check_priority', store=True)
 
+    def _get_user_id(self):
+        current_user_id = self.env.uid
+        group_staff_id = int(self.env['crm.team.member'].search([('user_id', '=', current_user_id)]).crm_team_id)
+        sales_staff_in_group = self.env['crm.team.member'].search([('crm_team_id', '=', group_staff_id)]).user_id.ids
+        desired_group_name = self.env['res.groups'].search([('name', '=', 'Leader')])
+        is_desired_group = self.env.user.id in desired_group_name.users.ids
+        if is_desired_group == True:
+            return ""
+        else:
+            return [('id', 'in', sales_staff_in_group)]
+
+    user_id = fields.Many2one(
+        'res.users', string='Salesperson', default=lambda self: self.env.user,
+        domain="['&', ('share', '=', False), ('company_ids', 'in', user_company_ids)]" and _get_user_id,
+        check_company=True, index=True, tracking=True)
     @api.constrains('revenue')
     def _check_min_revenue(self):
         for r in self:
             if r.revenue <= 0:
-                raise ValidationError("Min revenue must > 0")
+                raise ValidationError("Min revenue must more than zero")
 
     def _compute_real_revenue(self):
         for rec in self:
