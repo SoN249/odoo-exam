@@ -1,11 +1,9 @@
 from odoo import fields, models, api, _
-from datetime import date
 
 
 class ReportIndicatorEvaluation(models.Model):
     _name = 'report.indicator.evaluation'
     month = fields.Selection([
-        ('0', date.today().strftime('%B')),
         ('1', 'January'),
         ('2', 'February'),
         ('3', 'March'),
@@ -18,13 +16,11 @@ class ReportIndicatorEvaluation(models.Model):
         ('10', 'October'),
         ('11', 'November'),
         ('12', 'December')
-    ], required="True", default='0')
+    ], required="True")
     sale_team = fields.Many2many('crm.team', string="Sale team")
 
     def btn_confirm(self):
         if self.month and self.sale_team:
-            if self.month == '0':
-                self.month = str(date.today().month)
             sale_teams_id = self.sale_team.mapped('id')
             self.env['indicator.evaluation'].sudo().search([]).unlink()
             for id in sale_teams_id:

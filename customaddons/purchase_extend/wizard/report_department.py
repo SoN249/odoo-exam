@@ -9,7 +9,7 @@ class ReportDepartment(models.TransientModel):
         ('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'),
         ('5', 'May'), ('6', 'June'), ('7', 'July'), ('8', 'August'),
         ('9', 'September'), ('10', 'October'), ('11', 'November'), ('12', 'December')
-    ], string='Month', default='1', required=True)
+    ], string='Month', required=True)
     department_id = fields.Many2many('hr.department', string='Department')
 
     # Filter data by month and department name
@@ -17,7 +17,6 @@ class ReportDepartment(models.TransientModel):
         department_name = self.department_id.mapped('name')
 
         if self.month and self.department_id:
-
             context = {
                 'name': _("Report"),
                 'view_mode': 'tree',

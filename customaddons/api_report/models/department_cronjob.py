@@ -1,6 +1,4 @@
 from odoo import models, fields, api
-
-
 class DepartmentCronjob(models.Model):
     _inherit = 'hr.department'
 

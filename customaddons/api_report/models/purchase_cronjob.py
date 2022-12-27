@@ -10,13 +10,10 @@ class SalesPurchaseCronjob(models.Model):
 
         # get list partner_id of accountant
         res_users = self.env['res.users'].sudo().search([('id', 'in', accountant_ids)])
-        res_users_id = res_users.mapped('partner_id')
-        res_users_partner_id = res_users_id.mapped('id')
+        res_users_id = res_users.partner_id.mapped('id')
 
-        # get list email of accountant
-        res_partner = self.env['res.partner'].sudo().search([('id', 'in', res_users_partner_id)])
+        res_partner = self.env['res.partner'].sudo().search([('id', 'in', res_users_id)])
         email_accountant = res_partner.mapped('email')
-
 
         indicator_evaluation_record = self.env['indicator.evaluation'].search([])
         sales_team = indicator_evaluation_record.mapped('sale_team')
