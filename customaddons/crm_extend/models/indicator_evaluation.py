@@ -30,6 +30,7 @@ class IndicatorEvaluation(models.Model):
                                                                      res.May, res.June, res.July, res.August, res.September,
                                                                      res.October, res.November, res.December))
 
+
                 rec.month_revenue = month_sales[0][rec.month - 1]
 
     @api.depends('create_date')

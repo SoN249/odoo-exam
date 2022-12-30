@@ -3,7 +3,6 @@ from odoo import models, fields, api
 class SalesPurchaseCronjob(models.Model):
     _name = 'sales.purchase'
 
-
     def btn_send_email(self):
         # get list id of accountant
         accountant_ids = self.env.ref('purchase_extend.group_staff_accountancy').users.ids

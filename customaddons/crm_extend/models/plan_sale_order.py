@@ -15,16 +15,9 @@ class PlanSaleOrder(models.Model):
          ('send', 'Send'),
          ('approve','Approve'),
          ('refuse','Refuse'),
-         ], string="State")
-
-    check_confirm = fields.Boolean()
-    send = fields.Boolean(compute='_compute_check_send')
+         ], string="State", default='new')
+    check_send = fields.Boolean(compute='_compute_check_send')
     approver_id = fields.One2many('approver.list','plan_sale_order_id',string="Approver")
-
-    def btn_new(self):
-        self.state = 'new'
-        self.approver_id.approval_status = 'not approved yet'
-
     def btn_send(self):
         if self.state == 'new':
             if self.approver_id.approver:
@@ -36,28 +29,12 @@ class PlanSaleOrder(models.Model):
         else:
             raise UserError('Cannot confirm this approve')
 
-    def btn_approve_confirm(self):
-        if self.check_confirm == True:
-            if self.approver_id.approver:
-                self.state = 'approve'
-                self.message_post(body=f'{self.create_uid.name} -> The new plan has been approved.')
-            else:
-                raise UserError('Please write your approvers.')
-        else:
-            raise UserError('All approvers have not yet agreed to approve.')
-
-    def btn_refuse_confirm(self):
-        if self.check_confirm == False:
-            self.state = 'refuse'
-            self.message_post(body=f'{self.create_uid.name}-> The new plan has been refused.')
-        else:
-            raise UserError('All approvers who have not yet declined approval.')
-
     @api.depends('create_uid')
     def _compute_check_send(self):
         current_user_ui = self.env.uid
+
         for rec in self:
-            rec.send = True
-            if rec.create_uid:
-                if rec.create_uid == current_user_ui:
-                    rec.send = False
+            if int(rec.create_uid) == current_user_ui:
+                    rec.check_send = True
+            else:
+                rec.check_send = False
