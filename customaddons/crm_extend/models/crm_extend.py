@@ -10,8 +10,6 @@ class CrmExtend(models.Model):
     create_month = fields.Integer('Create Month', compute='_compute_create_month', store=True)
     sale_team = fields.Many2many('crm.team', string="Sale team")
     quotation_count = fields.Integer(compute='_compute_sale_data', string="Number of Quotations")
-    check_priority = fields.Boolean('Check Priority', default=False, compute='_compute_check_priority', store=True)
-
     def _get_user_id(self):
         current_user_id = self.env.uid
         group_staff_id = int(self.env['crm.team.member'].search([('user_id', '=', current_user_id)]).crm_team_id)
@@ -45,13 +43,16 @@ class CrmExtend(models.Model):
         for rec in self:
             if rec.create_date:
                 rec.create_month = rec.create_date.month
-    @api.depends('priority')
-    def _compute_check_priority(self):
-        for rec in self:
-            rec.check_priority = False
-            if rec.priority == '3':
-                rec.check_priority = True
 
-    # Override the Lost button again for the groups leader
-    def btn_leader_set_lost(self):
-        return super(CrmExtend, self).action_set_lost()
+
+    def action_set_lost(self, **additional_values):
+        desired_group_name = self.env['res.groups'].search([('name', '=', 'Leader')])
+        is_desired_group = self.env.user.id in desired_group_name.users.ids
+        for rec in self:
+            if rec.priority == '3':
+                if is_desired_group == True:
+                    return super(CrmExtend, self).action_set_lost()
+                else:
+                    raise UserError("You not allowed mark lost")
+            else:
+                return super(CrmExtend, self).action_set_lost()

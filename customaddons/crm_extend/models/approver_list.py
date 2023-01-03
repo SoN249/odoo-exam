@@ -1,6 +1,4 @@
 from odoo import api, models, fields
-
-
 class AproverList(models.Model):
     _name = "approver.list"
     _description = "Approver List"
