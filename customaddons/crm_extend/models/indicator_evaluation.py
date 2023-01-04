@@ -17,8 +17,7 @@ class IndicatorEvaluation(models.Model):
             if rec.sale_team:
                 amount_untaxed_opportunity = self.env['sale.order'].search(
                     [('team_id', '=', rec.sale_team.mapped('id'))])
-                amount_untaxed = amount_untaxed_opportunity.mapped('amount_untaxed')
-                rec.real_revenue = sum(amount_untaxed)
+                rec.real_revenue = sum(amount_untaxed_opportunity.mapped('amount_untaxed'))
 
     # Get value month revenue to month of report
     @api.depends('month')

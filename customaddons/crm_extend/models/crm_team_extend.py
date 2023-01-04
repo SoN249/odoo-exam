@@ -4,6 +4,7 @@ from odoo.exceptions import UserError, ValidationError
 class CrmTeam(models.Model):
     _inherit = "crm.team"
     _description = "Crm sales team"
+
     January = fields.Float('January')
     February = fields.Float('February')
     March = fields.Float('March')

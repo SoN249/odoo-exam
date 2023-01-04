@@ -41,6 +41,7 @@
                                     <button name="btn_refuse" string="Refuse" type="object" class="oe_highlight"
                                                 groups="crm_extend.group_staff_approver"
                                                 attrs="{'invisible': ['|',('check_approver','=',False),('approval_status', 'in', ('refuse', 'approve'))]}"/>
+
                                 </tree>
                             </field>
                         </page>

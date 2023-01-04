@@ -35,8 +35,7 @@ class CrmExtend(models.Model):
         for rec in self:
             if rec.id:
                 amount_total = self.env['sale.order'].search([('opportunity_id', '=', rec.id)])
-                amount_total_opportunity = amount_total.mapped('amount_total')
-                rec.real_revenue = sum(amount_total_opportunity)
+                rec.real_revenue = sum(amount_total.mapped('amount_total'))
 
     @api.depends('create_date')
     def _compute_create_month(self):
@@ -48,6 +47,7 @@ class CrmExtend(models.Model):
     def action_set_lost(self, **additional_values):
         desired_group_name = self.env['res.groups'].search([('name', '=', 'Leader')])
         is_desired_group = self.env.user.id in desired_group_name.users.ids
+
         for rec in self:
             if rec.priority == '3':
                 if is_desired_group == True:

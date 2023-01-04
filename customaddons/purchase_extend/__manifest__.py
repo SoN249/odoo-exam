@@ -15,7 +15,5 @@
         'wizard/report_department.xml',
         'demo/department_data.xml'
     ],
-    # 'demo':[
-    #     'demo/department_data.xml'
-    # ]
+
 }
