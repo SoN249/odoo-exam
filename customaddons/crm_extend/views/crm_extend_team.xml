@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//notebook/page[@name='members_users']" position="before">
-                <page string="Chỉ tiêu doanh số theo tháng (trước VAT)" groups="crm_extend.group_staff_manager">
+                <page string="Chỉ tiêu doanh số theo tháng (trước VAT)" groups="crm_extend.group_staff_leader">
                     <group>
                        <field name="January" />
                         <field name="February"/>

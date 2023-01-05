@@ -26,19 +26,26 @@ class ReportIndicatorEvaluation(models.Model):
             for id in sale_teams_id:
                 self.env['indicator.evaluation'].sudo().create({
                     'sale_team': id,
-                    'month': int(self.month)
+                    'month': self.month
                 })
             context = {
-                'name': _("Report Indicator Evaluation"),
-                'view_mode': 'tree',
-                'res_model': 'indicator.evaluation',
-                'type': 'ir.actions.act_window',
-                'view_id': self.env.ref('crm_extend.indicator_evaluation_view_tree').id,
-                'target': 'current',
-                'domain': [('sale_team', 'in', sale_teams_id), ('create_month', '=', self.month)],
-                'context': {'create': False, 'edit': False, 'delete': False}
+                    'name': _("Report Indicator Evaluation"),
+                    'view_mode': 'tree',
+                    'res_model': 'indicator.evaluation',
+                    'type': 'ir.actions.act_window',
+                    'view_id': self.env.ref('crm_extend.indicator_evaluation_view_tree').id,
+                    'target': 'current',
+                    'domain': [('sale_team', 'in', sale_teams_id), ('month', '=', self.month)],
+                    'context': {'create': False, 'edit': False, 'delete': False}
             }
         else:
+            self.env['indicator.evaluation'].sudo().search([]).unlink()
+            sale_team_ids = self.env['crm.team'].search([]).mapped('id')
+            for id in sale_team_ids:
+                self.env['indicator.evaluation'].sudo().create({
+                    'sale_team': id,
+                    'month': self.month
+                })
             context = {
                 'name': _("Report Indicator Evaluation"),
                 'view_mode': 'tree',
