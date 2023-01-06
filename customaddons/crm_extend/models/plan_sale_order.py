@@ -32,7 +32,6 @@ class PlanSaleOrder(models.Model):
     @api.depends('create_uid')
     def _compute_check_send(self):
         current_user_ui = self.env.uid
-
         for rec in self:
             if int(rec.create_uid) == current_user_ui:
                     rec.check_send = True

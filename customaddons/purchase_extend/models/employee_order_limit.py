@@ -11,4 +11,4 @@ class EmployeeOrderLimit(models.Model):
     def _check_order_limit(self):
         for r in self:
             if r.order_limit <= 0:
-                raise ValidationError("Order limit must > 0")
+                raise ValidationError("Order limit must more than 0")

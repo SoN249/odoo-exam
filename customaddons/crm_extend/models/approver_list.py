@@ -17,17 +17,16 @@ class AproverList(models.Model):
 
     def _compute_check_approver(self):
 
-        approver_current = int(self.env.user.partner_id)
+        approver_current = self.env.user.partner_id.id
         approver_list = self.plan_sale_order_id.approver_id.approver
-        check = approver_current in approver_list.ids
-        if check == True and self.plan_sale_order_id.state == 'send':
+        if approver_current == approver_list.ids and self.plan_sale_order_id.state == 'send':
             self.check_approver = True
         else:
             self.check_approver = False
 
     def btn_approve(self):
-        approver = int(self.approver)
-        approver_current = int(self.env.user.partner_id)
+        approver = self.approver
+        approver_current = self.env.user.partner_id
         if approver_current == approver:
             self.approval_status = 'approve'
             approver_id = self.plan_sale_order_id.approver_id
@@ -38,8 +37,8 @@ class AproverList(models.Model):
         else:
             raise UserError("This is not allowed approve")
     def btn_refuse(self):
-        approver = int(self.approver)
-        approver_current = int(self.env.user.partner_id)
+        approver = self.approver
+        approver_current = self.env.user.partner_id
         if approver_current == approver:
             self.approval_status = 'refuse'
             approver_id = self.plan_sale_order_id.approver_id
