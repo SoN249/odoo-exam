@@ -5,6 +5,7 @@ import json
 class SalesPurchase(http.Controller):
     @http.route('/api_report', type='json', auth='none', methods=["POST"], csrf=False)
     def sales_purchase(self, **kwargs):
+
         body = json.loads(request.httprequest.data)
         access_token = "odooneverdie"
 

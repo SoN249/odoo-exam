@@ -26,7 +26,6 @@ class ReportDetail(models.Model):
     def btn_confirm(self):
         if self.month and self.sale_team:
             sale_teams_id = self.sale_team.mapped('id')
-
             context = {
                 'name': _("Detail Report"),
                 'view_mode': 'tree',

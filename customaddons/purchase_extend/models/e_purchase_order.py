@@ -8,13 +8,14 @@ class EPurchaseOrder(models.Model):
             # get role of users
             desired_group_name = self.env['res.groups'].search([('name', '=', 'Accountancy')])
             is_desired_group = self.env.user.id in desired_group_name.users.ids
-
+            #get list order limit of employee
             current_user_id = self.env.uid
             employee_line = self.env['employee.order.limit'].search([('employee', '=', current_user_id)], limit=1)
             employee = employee_line.mapped('order_limit')
 
             for rec in self:
                 if rec.amount_total:
+                    #Check order limit of employee and amount total
                     if rec.amount_total < employee[0]:
                         return super(EPurchaseOrder, self).button_confirm()
                     else:

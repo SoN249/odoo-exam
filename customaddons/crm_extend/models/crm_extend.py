@@ -12,8 +12,10 @@ class CrmExtend(models.Model):
     quotation_count = fields.Integer(compute='_compute_sale_data', string="Number of Quotations")
     def _get_user_id(self):
         current_user_id = self.env.uid
+        # Get data of sales team currently
         group_staff_id = int(self.env['crm.team.member'].search([('user_id', '=', current_user_id)]).crm_team_id)
         sales_staff_in_group = self.env['crm.team.member'].search([('crm_team_id', '=', group_staff_id)]).user_id.ids
+        # Check role of user currently
         desired_group_name = self.env['res.groups'].search([('name', '=', 'Leader')])
         is_desired_group = self.env.user.id in desired_group_name.users.ids
         if is_desired_group == True:
@@ -45,6 +47,7 @@ class CrmExtend(models.Model):
 
 
     def action_set_lost(self, **additional_values):
+        # Check role of user current is Leader
         desired_group_name = self.env['res.groups'].search([('name', '=', 'Leader')])
         is_desired_group = self.env.user.id in desired_group_name.users.ids
 

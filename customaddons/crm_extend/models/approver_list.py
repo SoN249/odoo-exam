@@ -16,21 +16,27 @@ class AproverList(models.Model):
     check_approver = fields.Boolean(compute='_compute_check_approver')
 
     def _compute_check_approver(self):
-
+        # get id approve currently
         approver_current = self.env.user.partner_id.id
+        #get list of approve
         approver_list = self.plan_sale_order_id.approver_id.approver
+        # Check approve current in approve list
         if approver_current == approver_list.ids and self.plan_sale_order_id.state == 'send':
             self.check_approver = True
         else:
             self.check_approver = False
 
     def btn_approve(self):
+        # Get approver of plan sales order
         approver = self.approver
+        # Get id of approver current
         approver_current = self.env.user.partner_id
+        # Check approve in plan sales order
         if approver_current == approver:
             self.approval_status = 'approve'
             approver_id = self.plan_sale_order_id.approver_id
             list_status = approver_id.mapped('approval_status')
+            # Check all status of plan is approved then plan is approve
             if all(x == 'approve' for x in list_status):
                 self.plan_sale_order_id.state = 'approve'
                 self.plan_sale_order_id.message_post(body=f'{self.env.user.name}-> {self.plan_sale_order_id.name} plan has been approve.')

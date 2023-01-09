@@ -11,12 +11,15 @@ class EPurchaseOrderLine(models.Model):
     def _compute_vendor(self):
         for rec in self:
             if rec.product_id:
+                # get list id of supplier with price ascending
                 supplier_line_price = self.env['product.supplierinfo'].search(
                     [('product_tmpl_id', '=', rec.product_id.id)],
                     order='price asc')
-                # get name vendor
+                # get name supplier
                 supplier_price = supplier_line_price.mapped('name.name')
+                # Check if many supplier have same price then check delay of supplier
                 if len(supplier_price) > 1:
+                    # Get list delay of supplier
                     supplier_line_delay = self.env['product.supplierinfo'].search(
                         [('product_tmpl_id', '=', rec.product_id.id)],
                         order='delay asc', limit=1)

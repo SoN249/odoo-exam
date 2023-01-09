@@ -10,6 +10,7 @@ class IndicatorEvaluationCronjob(models.Model):
         current_month = date.today().month
         for rec in self:
             if rec.real_revenue:
+                # calculate revenue difference
                 month_sales_result = self.env['crm.team'].search([('id', 'in', rec.sale_team.mapped('id'))])
                 month_sales = month_sales_result.mapped(lambda res: (res.January, res.February, res.March, res.April,
                                                                      res.May, res.June, res.July, res.August, res.September,

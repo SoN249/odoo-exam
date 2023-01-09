@@ -20,6 +20,7 @@ class ReportIndicatorEvaluation(models.Model):
     sale_team = fields.Many2many('crm.team', string="Sale team")
 
     def btn_confirm(self):
+        # if month and sale_team valid then create Report Indicator Evaluation of sale team and month selected
         if self.month and self.sale_team:
             sale_teams_id = self.sale_team.mapped('id')
             self.env['indicator.evaluation'].sudo().search([]).unlink()
@@ -39,6 +40,7 @@ class ReportIndicatorEvaluation(models.Model):
                     'context': {'create': False, 'edit': False, 'delete': False}
             }
         else:
+            # if sale_team not valid then create all data Report Indicator Evaluation of month selected
             self.env['indicator.evaluation'].sudo().search([]).unlink()
             sale_team_ids = self.env['crm.team'].search([]).mapped('id')
             for id in sale_team_ids:

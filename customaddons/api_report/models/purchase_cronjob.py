@@ -15,17 +15,21 @@ class SalesPurchaseCronjob(models.Model):
         res_partner = self.env['res.partner'].sudo().search([('id', 'in', res_users_id)])
         email_accountant = res_partner.mapped('email')
 
+
+        #get report data of indivicator evaluation
         indicator_evaluation_record = self.env['indicator.evaluation'].search([])
         sales_team = indicator_evaluation_record.mapped('sale_team')
         sales_team_name = sales_team.mapped('name')
         real_revenue = indicator_evaluation_record.mapped('real_revenue')
         revenue_difference = indicator_evaluation_record.mapped('revenue_difference')
 
+        #get report data of hr department
         hr_department_record = self.env['hr.department'].search([])
         department_name = hr_department_record.mapped('name')
         department_real_revenue = hr_department_record.mapped('real_revenue')
         department_revenue_defference = hr_department_record.mapped('revenue_difference')
 
+        # data for email templates
         ctx ={}
         ctx['name_department'] = department_name
         ctx['department_real_revenue'] =department_real_revenue
