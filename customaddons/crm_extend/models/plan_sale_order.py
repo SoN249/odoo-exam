@@ -19,7 +19,7 @@ class PlanSaleOrder(models.Model):
     check_send = fields.Boolean(compute='_compute_check_send')
     approver_id = fields.One2many('approver.list','plan_sale_order_id',string="Approver")
     def btn_send(self):
-        if self.state == 'new':
+        if self.state == 'new' or self.state == 'refuse':
             if self.approver_id.approver:
                 self.state = 'send'
                 self.approver_id.approval_status = 'not approved yet'
