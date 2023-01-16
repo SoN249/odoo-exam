@@ -18,7 +18,7 @@ class ReportDepartment(models.TransientModel):
 
         if self.month and self.department_id:
             context = {
-                'name': _("Report"),
+                'name': _("Report Department"),
                 'view_mode': 'tree',
                 'res_model': 'hr.department',
                 'type': 'ir.actions.act_window',
@@ -29,7 +29,7 @@ class ReportDepartment(models.TransientModel):
             }
         else:
             context = {
-                'name': _("Report"),
+                'name': _("Report Department"),
                 'view_mode': 'tree',
                 'res_model': 'hr.department',
                 'type': 'ir.actions.act_window',

@@ -20,8 +20,9 @@ class AproverList(models.Model):
         approver_current = self.env.user.partner_id.id
         #get list of approve
         approver_list = self.plan_sale_order_id.approver_id.approver
+
         # Check approve current in approve list
-        if approver_current == approver_list.ids and self.plan_sale_order_id.state == 'send':
+        if approver_current in approver_list.ids and self.plan_sale_order_id.state == 'send':
             self.check_approver = True
         else:
             self.check_approver = False
@@ -42,6 +43,7 @@ class AproverList(models.Model):
                 self.plan_sale_order_id.message_post(body=f'{self.env.user.name}-> {self.plan_sale_order_id.name} plan has been approve.')
         else:
             raise UserError("This is not allowed approve")
+
     def btn_refuse(self):
         approver = self.approver
         approver_current = self.env.user.partner_id
