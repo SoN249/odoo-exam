@@ -25,9 +25,9 @@ class PlanSaleOrder(models.Model):
                 self.approver_id.approval_status = 'not approved yet'
                 self.message_post(body=f'{self.create_uid.name} -> The new plan has been sent.')
             else:
-                raise UserError('Please write your approvers')
+                raise UserError('Please select approver for plan')
         else:
-            raise UserError('Cannot confirm this approve')
+            raise UserError('The new plan has been sent')
 
     @api.depends('create_uid')
     def _compute_check_send(self):
