@@ -1,7 +1,7 @@
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
 
-class CrmExtend(models.Model):
+class SCrmLead(models.Model):
     _inherit = "crm.lead"
     _description = "Manager CRM"
 
@@ -54,8 +54,8 @@ class CrmExtend(models.Model):
         for rec in self:
             if rec.priority == '3':
                 if is_desired_group == True:
-                    return super(CrmExtend, self).action_set_lost()
+                    return super(SCrmLead, self).action_set_lost()
                 else:
                     raise UserError("You not allowed mark lost")
             else:
-                return super(CrmExtend, self).action_set_lost()
+                return super(SCrmLead, self).action_set_lost()

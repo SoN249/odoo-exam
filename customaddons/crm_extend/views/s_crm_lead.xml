@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="crm_extend_views" model="ir.ui.view">
-        <field name="name">crm.extend.view</field>
+    <record id="s_crm_lead_form_view" model="ir.ui.view">
+        <field name="name">s.crm.lead.form.view</field>
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
@@ -9,7 +9,6 @@
                   <field name="revenue" attrs="{'readonly':[('quotation_count','>',0)]}"/>
                   <field name="quotation_count" invisible="1"/>
              </xpath>
-
 
             <xpath expr="//field[@name='user_id']" position="attributes">
                 <attribute name="groups">crm_extend.group_staff_employee</attribute>

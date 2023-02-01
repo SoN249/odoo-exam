@@ -2,12 +2,14 @@ from odoo import fields, models, api
 from odoo.exceptions import UserError, ValidationError
 
 
-class EDepartment(models.Model):
+class SHrDepartment(models.Model):
     _inherit = 'hr.department'
     _description = 'Manage department'
     limit = fields.Float('Spending limit', digits=(14,4))
     real_revenue = fields.Float(string='Real Revenue', compute='_compute_real_revenue', store=False)
     create_month = fields.Integer('Create Month', compute='_compute_create_month', store=True)
+
+
 
     @api.constrains('spending_limit')
     def _check_spending_limit(self):

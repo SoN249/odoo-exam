@@ -12,6 +12,7 @@
                         </group>
                         <group>
                             <field name="department_id" widget="many2many"/>
+
                         </group>
                     </group>
                     <footer>

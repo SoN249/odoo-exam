@@ -5,9 +5,9 @@
     'version': '15.0.1',
     'data': [
         'security/ir.model.access.csv',
-        'views/department_cronjob.xml',
-        'views/indicator_evaluation_cronjob.xml',
-        'views/purchase_cronjob.xml',
+        'views/ss_hr_department.xml',
+        'views/s_indicator_evaluation.xml',
+        'views/s_sales_purchase.xml',
         'data/sale_purchase_email_template.xml',
         'data/scheduled_action.xml'
     ]

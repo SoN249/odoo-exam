@@ -16,7 +16,7 @@ class SalesPurchase(http.Controller):
             real_revenue = indicator_evaluation.mapped('real_revenue')
             revenue_difference = indicator_evaluation.mapped('revenue_difference')
 
-            hr_department = http.request.env['hr.department'].sudo().search([('create_month', '=', body["month"])])
+            hr_department = request.env['hr.department'].sudo().search([('create_month', '=', body["month"])])
             department_name = hr_department.mapped('name')
             real_cost = hr_department.mapped('real_revenue')
             real_cost_difference = hr_department.mapped('revenue_difference')

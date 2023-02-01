@@ -1,7 +1,7 @@
 from odoo import api, models, fields
 
 
-class EPurchaseOrderLine(models.Model):
+class SPurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
     vendors = fields.Char('Vendor Suggest', compute='_compute_vendor', store=True)
     product_id = fields.Many2one('product.product', string='Product', domain=[('purchase_ok', '=', True)],
@@ -23,7 +23,9 @@ class EPurchaseOrderLine(models.Model):
                     supplier_line_delay = self.env['product.supplierinfo'].search(
                         [('product_tmpl_id', '=', rec.product_id.id)],
                         order='delay asc', limit=1)
+
                     supplier_delay = supplier_line_delay.mapped('name.name')
+
                     rec.vendors = ''.join(supplier_delay)
                 else:
                      rec.vendors = ''.join(supplier_price)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record id="department_cronjob_tree_view_inherit" model="ir.ui.view">
-            <field name="name">department_cronjob.tree.view.inherit</field>
+        <record id="ss_hr_department_tree_view" model="ir.ui.view">
+            <field name="name">ss.hr.department.tree.view</field>
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">

@@ -8,8 +8,8 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/e_department.xml',
-        'views/e_purchase_order.xml',
+        'views/s_hr_department.xml',
+        'views/s_purchase_order.xml',
         'views/order_limit.xml',
         'views/employee_order_limit.xml',
         'wizard/report_department.xml',

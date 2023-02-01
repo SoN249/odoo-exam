@@ -1,7 +1,7 @@
 from odoo import models, api, fields
 from odoo.exceptions import UserError, ValidationError
 
-class CrmTeam(models.Model):
+class SCrmTeam(models.Model):
     _inherit = "crm.team"
     _description = "Crm sales team"
 

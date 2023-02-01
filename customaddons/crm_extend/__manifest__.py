@@ -6,9 +6,9 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/crm_extend_views.xml',
-        'views/crm_extend_team.xml',
-        'views/e_sale_order.xml',
+        'views/s_crm_lead.xml',
+        'views/s_crm_team.xml',
+        'views/s_sale_order.xml',
         'views/plan_sales_order.xml',
         'views/indicator_evaluation.xml',
         'wizard/report_detail.xml',

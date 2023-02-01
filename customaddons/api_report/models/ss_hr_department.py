@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-class DepartmentCronjob(models.Model):
+class SSHrDepartment(models.Model):
     _inherit = 'hr.department'
 
     revenue_difference = fields.Float('Revenue Difference', compute='_compute_revenue_difference', store=True)
