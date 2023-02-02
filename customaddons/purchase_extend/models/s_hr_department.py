@@ -9,9 +9,7 @@ class SHrDepartment(models.Model):
     real_revenue = fields.Float(string='Real Revenue', compute='_compute_real_revenue', store=False)
     create_month = fields.Integer('Create Month', compute='_compute_create_month', store=True)
 
-
-
-    @api.constrains('spending_limit')
+    @api.constrains('limit')
     def _check_spending_limit(self):
         if self.limit:
             if self.limit < 0:
